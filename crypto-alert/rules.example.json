@@ -1,0 +1,16 @@
+{
+  "subscribers": [
+    {
+      "id": "ray",
+      "channels": [
+        { "type": "telegram", "chatId": "123456789" },
+        { "type": "discord", "webhookUrl": "https://discord.com/api/webhooks/..." }
+      ],
+      "rules": [
+        { "symbol": "BTCUSDT", "type": "cross_above", "price": 125000, "cooldownSec": 900 },
+        { "symbol": "BTCUSDT", "type": "cross_below", "price": 110000, "cooldownSec": 900 },
+        { "symbol": "ETHUSDT", "type": "pct_change", "windowMin": 5, "pct": 3 }
+      ]
+    }
+  ]
+}
