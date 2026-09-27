@@ -1,0 +1,49 @@
+# M1 徵集／作品分享型（PRD 4.6 M1、4.7）
+id: showcase
+version: 1
+name: 徵集／作品分享型
+detect_hints:
+  - 主貼文在徵求大家分享作品、工具、推薦
+  - 多數回覆包含「我做了」「我用」並描述一個具體項目
+research_questions:
+  - 大家做出了哪些工具？解決什麼問題、給誰用？
+  - 大家怎麼用 Claude 做的？用了哪些產品或功能、搭配什麼技術、花多久？
+  - 開發過程有哪些心得、技巧和踩坑？
+  - 哪些工具最受關注？
+  - 有哪些需求被提出但還沒人做？
+collection:
+  question_type: enumeration   # 列舉型
+  strategy: full               # 全量，含所有層級回覆
+inclusion:                     # 內容篩選的收錄標準（PRD 4.3.1）
+  include:
+    - 分享一個具體項目（自己做的或推薦別人的）
+    - 開發心得、技巧、踩坑經驗
+    - 「有沒有人做過 X」「好希望有 X」這類需求
+  merge:
+    - 分享者在同一回覆子樹中補充自己項目的細節
+  exclude:
+    - 追問（例如「怎麼做的？」），但先計入訊號
+    - 求連結、我也想要（先計入訊號）
+    - 稱讚、+1、純表情、標記朋友、廣告、離題
+signals:                       # 刪除前要統計的訊號
+  link_request: [求連結, 連結, 網址, 哪裡可以用]
+  want_it: [我也想要, 想用, 好想要, 可以給我]
+  how_to: [怎麼做, 如何做, 教學, 怎麼用]
+  open_source_request: [開源, GitHub, 原始碼]
+modules:
+  - content_filter
+  - item_extraction
+  - cross_reply_merge
+  - dedupe
+  - clustering
+  - interest_scoring
+  - unmet_needs
+  - tips_summary
+extraction_schema: schemas/showcase_item.schema.json
+# 主題專屬欄位：依主貼文主題動態加入（PRD 待決問題 3）。
+# 例如主題是「用 Claude 做的工具」時加入 claude_usage。
+topic_fields:
+  claude_tools:
+    - claude_usage
+optional_modules:
+  - sentiment

@@ -1,0 +1,32 @@
+# M4 品牌／產品回饋型（PRD 4.6 M4）
+id: brand_feedback
+version: 1
+name: 品牌／產品回饋型
+detect_hints:
+  - 品牌帳號發文、新品或活動公告
+  - 留言多在評價某個產品或服務
+research_questions:
+  - 大家喜歡和不喜歡什麼？
+  - 有哪些抱怨、期待和購買意願？
+  - 有沒有提到競品？
+collection:
+  question_type: proportion    # 比例型
+  strategy: sample             # 以 50 則為起點逐步抽樣（PRD 4.2）
+  full_when: [完整客訴清單]     # 使用者勾選時改為全量
+inclusion:
+  include:
+    - 對產品或品牌的任何評價、需求、使用經驗
+  exclude:
+    - 抽獎留言、標記朋友、與產品無關
+modules:
+  - content_filter
+  - aspect_sentiment
+  - item_extraction            # 客訴、功能需求、購買意願、競品提及
+  - clustering
+extraction_fields:
+  - sentiment                  # positive | neutral | negative | unknown
+  - aspect                     # 價格、品質、服務、設計…
+  - complaint
+  - feature_request
+  - purchase_intent
+  - competitor_mentions

@@ -1,0 +1,12 @@
+# 留言原文與已排除的留言不進 Git（PRD 第 13 節、CLAUDE.md 隱私規則）
+data/**/snapshots/
+data/**/excluded/
+
+# 存取權杖與個人設定
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+.venv/

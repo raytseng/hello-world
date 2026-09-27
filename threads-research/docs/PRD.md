@@ -3,6 +3,7 @@
 | 項目 | 內容 |
 | --- | --- |
 | 文件狀態 | 草稿 v0.6 |
+| 相關文件 | `CLAUDE.md`、`docs/DISCUSSION.md`、`docs/IMPLEMENTATION_PLAN.md` |
 | 建立日期 | 2026-09-27 |
 | 負責人 | Ray Tseng |
 | 預計形式 | Web 工具（MVP 可先做 CLI + 報告頁） |
@@ -996,7 +997,7 @@ ReplyMotive（回覆動機）
 | 前台 | 純 HTML + JavaScript，讀取 JSON 檔來顯示 | 同一套前台，改成透過 API 讀寫資料庫 |
 | 怎麼新增報告 | 在 VS Code 用 Claude Code 分析完，把 JSON 寫進資料夾並 commit | 在網頁上直接建立任務 |
 | 在網頁上寫筆記、標記 | 只存在自己的瀏覽器，需要時匯出 | 存進資料庫，所有裝置都看得到 |
-| 版本紀錄 | Git 歷史就是完整的版本紀錄 | 資料庫中的快照 |
+| 版本紀錄 | 分析結果的 Git 歷史就是版本紀錄；留言原文不進 Git，避免到期刪除後仍留在歷史中 | 資料庫中的快照 |
 | 費用 | 本機開啟免費；託管到網路上也有免費方案 | 視資料庫與主機方案而定，個人用量通常在免費額度內 |
 | 何時該升級 | — | 報告超過數百份、需要跨報告搜尋很快、或需要在手機上直接建立任務時 |
 
@@ -1009,7 +1010,8 @@ threads-research/
 ├─ data/
 │  ├─ index.json                  所有報告的清單（前台首頁讀這個檔）
 │  ├─ threads/{thread_id}/
-│  │  ├─ snapshots/{日期}.json     每次收集的原始資料
+│  │  ├─ snapshots/{日期}.json     每次收集的原始資料（不進 Git）
+│  │  ├─ excluded/{run_id}.json    已排除的留言（不進 Git，到期清除）
 │  │  └─ runs/{run_id}.json        每次分析的結果（依模式）
 │  ├─ accounts/{帳號}/
 │  │  └─ {期間}.json               帳號經營分析的結果

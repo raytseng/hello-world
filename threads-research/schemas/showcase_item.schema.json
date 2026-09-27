@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "showcase_item.schema.json",
+  "title": "M1 徵集型萃取項目（草稿）",
+  "type": "object",
+  "required": ["schema_version", "item_id", "item_name", "source_post_ids", "confidence"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "item_id": { "type": "string" },
+    "item_name": { "type": "string" },
+    "name_is_generated": { "type": "boolean", "description": "沒有名稱時由系統命名" },
+    "summary": { "type": ["string", "null"] },
+    "problem_solved": { "type": ["string", "null"] },
+    "target_user": { "type": ["string", "null"] },
+    "category": { "type": ["string", "null"] },
+    "claude_usage": {
+      "type": ["array", "null"],
+      "items": { "enum": ["claude_code", "claude_api", "claude_ai_chat", "artifacts", "mcp", "agent_sdk", "other"] }
+    },
+    "tech_stack": { "type": ["array", "null"], "items": { "type": "string" } },
+    "dev_effort": { "type": ["string", "null"] },
+    "builder_background": { "type": ["string", "null"], "description": "只記錄本人主動提到的內容" },
+    "stage": { "enum": ["idea", "in_progress", "personal_use", "launched", "open_source", null] },
+    "links": { "type": "array", "items": { "type": "string" } },
+    "is_own_work": { "type": ["boolean", "null"] },
+    "tips_pitfalls": { "type": "array", "items": { "type": "string" } },
+    "source_post_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "mention_count": { "type": "integer", "minimum": 1 },
+    "signals": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 },
+      "description": "刪除前統計的需求訊號，例如 link_request、want_it"
+    },
+    "interest_score": { "type": ["number", "null"] },
+    "possible_duplicate_of": { "type": ["string", "null"] },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+  }
+}

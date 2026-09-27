@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "snapshot.schema.json",
+  "title": "貼文串收集快照（草稿）",
+  "type": "object",
+  "required": ["schema_version", "snapshot_id", "thread", "collected_at", "source", "posts"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "snapshot_id": { "type": "string" },
+    "collected_at": { "type": "string", "format": "date-time" },
+    "source": { "enum": ["api", "extension", "import"] },
+    "reported_reply_count": { "type": ["integer", "null"] },
+    "collected_reply_count": { "type": "integer" },
+    "collection_strategy": { "enum": ["full", "sample", "saturation"] },
+    "stop_reason": { "enum": ["all_collected", "converged", "cap_reached", "rate_limited", null] },
+    "thread": {
+      "type": "object",
+      "required": ["thread_id", "author_username", "text", "created_at"],
+      "properties": {
+        "thread_id": { "type": "string" },
+        "url": { "type": ["string", "null"] },
+        "author_username": { "type": "string" },
+        "text": { "type": "string" },
+        "media": { "type": "array", "items": { "type": "object" } },
+        "created_at": { "type": "string", "format": "date-time" },
+        "metrics": {
+          "type": "object",
+          "properties": {
+            "likes": { "type": "integer" },
+            "replies": { "type": "integer" },
+            "reposts": { "type": "integer" },
+            "quotes": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "posts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["post_id", "parent_id", "depth", "author_username", "text", "created_at"],
+        "properties": {
+          "post_id": { "type": "string" },
+          "parent_id": { "type": "string" },
+          "depth": { "type": "integer", "minimum": 1 },
+          "author_username": { "type": "string" },
+          "is_op": { "type": "boolean" },
+          "text": { "type": "string" },
+          "links": { "type": "array", "items": { "type": "string" } },
+          "created_at": { "type": "string", "format": "date-time" },
+          "like_count": { "type": "integer" },
+          "reply_count": { "type": "integer" }
+        }
+      }
+    }
+  }
+}
